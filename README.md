@@ -1,2 +1,2 @@
 # flutter_friend_favours
-Learning Flutter
+Learning Flutter with book 'Flutter for Beginners'.
