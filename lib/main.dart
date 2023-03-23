@@ -41,10 +41,30 @@ class FavoursPage extends StatelessWidget {
     required this.acceptedFavours,
   }) : super(key: key);
   
+  Widget _buildCategoryTab(String title) {
+    return Tab(
+      child: Text(title),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Your favours"),
+          bottom: TabBar(
+            isScrollable: true,
+            tabs: [
+              _buildCategoryTab("Requests"),
+              _buildCategoryTab("Doing"),
+              _buildCategoryTab("Completed"),
+              _buildCategoryTab("Refused"),
+            ]),
+        ),
+      ),
+      );
   }
 
 
