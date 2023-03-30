@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'favor.dart';
-import 'friend.dart';
+// import 'friend.dart';
 import 'mock_values.dart';
 
 void main() {
@@ -51,7 +51,7 @@ class FavoursPage extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-//        Padding
+// TODO       Padding
         Expanded(
             child: ListView.builder(
           itemCount: favours.length,
@@ -59,12 +59,15 @@ class FavoursPage extends StatelessWidget {
             final favour = favours[index];
             return Card(
               key: ValueKey(favour.uuid),
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(children: <Widget>[
+                  _itemHeader(favour),
                   Text(favour.description ?? ""),
+                  // _itemFooter(favour),
                 ]),
-                padding: EdgeInsets.all(8.0),
+                
               ),
             );
           },
@@ -73,13 +76,35 @@ class FavoursPage extends StatelessWidget {
     );
   }
 
+  Widget _itemHeader(Favor favour) {
+    return Row(
+      children: <Widget>[
+        const CircleAvatar(
+          backgroundColor: Colors.green,
+          // backgroundImage: NetworkImage(
+          //   favour.friend.photoURL,
+          // ),
+        ),
+        Expanded(
+          child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(favour.friend?.name ?? "")),
+        )
+      ],
+    );
+  }
+
+  // Widget _itemFooter(Favor favour) {
+
+  // }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Your favours"),
+          title: const Text("Your favours"),
           bottom: TabBar(isScrollable: true, tabs: [
             _buildCategoryTab("Requests"),
             _buildCategoryTab("Doing"),
@@ -98,7 +123,7 @@ class FavoursPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
           tooltip: "Ask a favour",
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
       ),
     );
