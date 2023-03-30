@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'favor.dart';
-// import 'friend.dart';
 import 'mock_values.dart';
 
 void main() {
@@ -59,15 +59,15 @@ class FavoursPage extends StatelessWidget {
             final favour = favours[index];
             return Card(
               key: ValueKey(favour.uuid),
-              margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(children: <Widget>[
                   _itemHeader(favour),
                   Text(favour.description ?? ""),
-                  // _itemFooter(favour),
+                  _itemFooter(favour),
                 ]),
-                
               ),
             );
           },
@@ -94,9 +94,52 @@ class FavoursPage extends StatelessWidget {
     );
   }
 
-  // Widget _itemFooter(Favor favour) {
+  Widget _itemFooter(Favor favour) {
+    if (favour.isRequested) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          TextButton(
+            onPressed: () {},
+            child: const Text("Refuse"),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text("Do"),
+          ),
+        ],
+      );
+    }
 
-  // }
+    if (favour.isDoing) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          TextButton(
+            onPressed: () {},
+            child: const Text("Give up"),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text("Complete"),
+          ),
+        ],
+      );
+    }
+
+    if (favour.isCompleted) {
+      final format = DateFormat();
+      return Container(
+          margin: const EdgeInsets.only(top: 8.0),
+          alignment: Alignment.centerRight,
+          child: Chip(
+            label: Text(
+                "Completed at ${format.format(favour.completed ?? DateTime.now())}"),
+          ));
+    }
+
+    return Container();
+  }
 
   @override
   Widget build(BuildContext context) {
